@@ -6,17 +6,21 @@ import WeatherReport from "../WeatherReport";
 import { API_URL } from "../../apiConfig";
 import { API_KEY } from "../../secrets";
 
-// Could let the user make the choice!
+// TODO: Make this a user selection
 const UNITS = `Imperial`;
 
 export function App() {
   const [weather, setWeather] = useState();
+  const [isFetching, setFetching] = useState(false);
 
   const handleRequestSubmission = useCallback(zipcode => {
-    // TODO: API call goes here...
+    setFetching(true);
     fetch(`${API_URL}${zipcode}&units=${UNITS}&appid=${API_KEY}`)
       .then(response => response.json())
-      .then(data => setWeather({ ...weather, data }));
+      .then(data => {
+        setFetching(false);
+        setWeather({ ...weather, data });
+      });
   }, []);
 
   return (
@@ -30,6 +34,11 @@ export function App() {
       <br />
       <Divider />
       <br />
+      {isFetching && (
+        <Typography variant="caption">
+          Loading the weather information
+        </Typography>
+      )}
       {weather && <WeatherReport weather={weather} units={UNITS} />}
     </Grid>
   );

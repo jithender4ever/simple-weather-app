@@ -14,7 +14,7 @@ const styles = {
   }
 };
 
-function WeatherReport({ classes, weather, units }) {
+export function WeatherReport({ classes, weather, units }) {
   const { data } = weather;
   const transformedData = useMemo(() => transformData(data), [data]);
 

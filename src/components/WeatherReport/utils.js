@@ -1,7 +1,7 @@
 import moment from "moment";
 
 export function transformData(data) {
-  if (!data) return data;
+  if (!data || Object.keys(data).length === 0) return data;
 
   const response = {};
 
@@ -14,12 +14,11 @@ export function transformData(data) {
   response["city"] = data.name;
   response["code"] = data.cod;
 
-  console.log("response: ", response);
-
   return response;
 }
 
 export function getDisplayDate(ts) {
+  if (!ts) return ts;
   const dateObj = new Date(ts * 1000);
   const date = moment(dateObj).format("MMM DD");
   const day = moment(dateObj).format("dddd");
