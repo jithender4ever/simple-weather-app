@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Grid, Divider, Typography } from "@material-ui/core";
 import RequestForm from "../RequestForm";
 import WeatherReport from "../WeatherReport";
 
+import { API_URL } from "../../apiConfig";
+import { API_KEY } from "../../secrets";
+
+// Could let the user make the choice!
+const UNITS = `Imperial`;
+
 export function App() {
-  const [weather, setWeather] = useState(undefined);
-  const handleRequestSubmission = zipcode => {
+  const [weather, setWeather] = useState();
+
+  const handleRequestSubmission = useCallback(zipcode => {
     // TODO: API call goes here...
-    setWeather({
-      description: "It's Chill out there...",
-      zipcode
-    });
-  };
+    fetch(`${API_URL}${zipcode}&units=${UNITS}&appid=${API_KEY}`)
+      .then(response => response.json())
+      .then(data => setWeather({ ...weather, data }));
+  }, []);
 
   return (
     <Grid container justify="center" alignItems="center" direction="column">
@@ -24,7 +30,7 @@ export function App() {
       <br />
       <Divider />
       <br />
-      {weather && <WeatherReport weather={weather} />}
+      {weather && <WeatherReport weather={weather} units={UNITS} />}
     </Grid>
   );
 }
