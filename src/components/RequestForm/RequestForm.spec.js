@@ -6,7 +6,7 @@ describe("RequestForm Tests", () => {
   it("renders form as expected", () => {
     const { queryByText, getByLabelText } = render(<RequestForm />);
 
-    expect(queryByText(/Enter the zipcode/i)).not.toBeNull();
+    expect(queryByText(/Enter a US zipcode/i)).not.toBeNull();
 
     expect(getByLabelText(/zipcode/i).value).toEqual("");
 

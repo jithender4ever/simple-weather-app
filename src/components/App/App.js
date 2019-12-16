@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Grid, Divider, Typography } from "@material-ui/core";
 import RequestForm from "../RequestForm";
 import WeatherReport from "../WeatherReport";
+import ErrorBoundary from "../../common/ErrorBoundary";
 
 import { API_URL } from "../../apiConfig";
 import { API_KEY } from "../../secrets";
@@ -30,7 +31,9 @@ export function App() {
       </Typography>
       <br />
       <br />
-      <RequestForm onRequestSubmit={handleRequestSubmission} />
+      <ErrorBoundary message="Error while loading RequestForm">
+        <RequestForm onRequestSubmit={handleRequestSubmission} />
+      </ErrorBoundary>
       <br />
       <Divider />
       <br />
@@ -39,7 +42,11 @@ export function App() {
           Loading the weather information
         </Typography>
       )}
-      {weather && <WeatherReport weather={weather} units={UNITS} />}
+      {weather && (
+        <ErrorBoundary message="Error while loading WeatherReport">
+          <WeatherReport weather={weather} units={UNITS} />
+        </ErrorBoundary>
+      )}
     </Grid>
   );
 }

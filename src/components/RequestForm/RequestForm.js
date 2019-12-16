@@ -28,7 +28,7 @@ export function RequestForm({ classes, onRequestSubmit }) {
   return (
     <form onSubmit={onFormSubmit}>
       <InputLabel htmlFor="zipcode" className={classes.label}>
-        Enter the zipcode you need weather report for:{" "}
+        Enter a US zipcode you need weather report for:{" "}
       </InputLabel>
       <br />
       <Input
