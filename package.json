@@ -6,7 +6,9 @@
   "author": "Jithender Reddy P",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
+    "start:dev": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode production --open",
     "test": "jest src",
     "test:watch": "jest src --watch"
   },

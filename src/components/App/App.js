@@ -5,7 +5,7 @@ import WeatherReport from "../WeatherReport";
 import ErrorBoundary from "../../common/ErrorBoundary";
 
 import { API_URL } from "../../apiConfig";
-import { API_KEY } from "../../secrets";
+import { API_KEY } from "../../../secrets";
 
 // TODO: Make this a user selection
 const UNITS = `Imperial`;
