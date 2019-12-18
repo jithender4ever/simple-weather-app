@@ -1,9 +1,10 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import { getDisplayDate, transformData } from "./utils";
 import { Typography, Card, CardContent, CardHeader } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
+
 import { UNIT_CONFIG } from "../../apiConfig";
+import { getDisplayDate } from "../../common/utils";
 
 const styles = {
   cardContent: {
@@ -15,21 +16,17 @@ const styles = {
 };
 
 export function WeatherReport({ classes, weather, units }) {
-  const { data } = weather;
-  const transformedData = useMemo(() => transformData(data), [data]);
-
-  const weatherClass = `owf owf-${transformedData.code} owf-8x`;
-
-  const displayDate = useMemo(() => getDisplayDate(transformedData.timestamp), [
-    transformedData.timestamp
+  const weatherClass = `owf owf-${weather && weather.code} owf-8x`;
+  const displayDate = useMemo(() => getDisplayDate(weather.timestamp), [
+    weather
   ]);
 
-  return transformedData ? (
+  return (
     <Card raised>
       <CardHeader
         title={
           <Typography variant="h4" color="textPrimary">
-            Weather for {transformedData.city}
+            Weather for {weather.city}
           </Typography>
         }
         subheader={
@@ -41,26 +38,26 @@ export function WeatherReport({ classes, weather, units }) {
       <CardContent className={classes.cardContent}>
         <Typography gutterBottom variant="h5">
           <i className={weatherClass}></i>
-          {` ${transformedData.temp}`}
+          {` ${weather.temp}`}
           <sup>o</sup>
           {` ${UNIT_CONFIG[units]}`}
         </Typography>
-        <Typography gutterBottom>{transformedData.description}</Typography>
+        <Typography gutterBottom>{weather.description}</Typography>
       </CardContent>
     </Card>
-  ) : null;
+  );
 }
 
 WeatherReport.propTypes = {
   classes: PropTypes.object.isRequired,
-  units: PropTypes.string.isRequired,
-  weather: PropTypes.object.isRequired
+  weather: PropTypes.object.isRequired,
+  units: PropTypes.string.isRequired
 };
 
 WeatherReport.defaultProps = {
   classes: {},
-  units: "Default",
-  weather: {}
+  weather: {},
+  units: "Default"
 };
 
 export default withStyles(styles)(WeatherReport);
