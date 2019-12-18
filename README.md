@@ -2,9 +2,13 @@
 
 The weather forecast application.
 
-## Technologies Used
+## Technologies & Patterns Used
 
-- React
+- react - view library
+- redux - state management
+- redux-thunk - async actions
+- MaterialUI - styling
+- CSS in JSS pattern for styling components
 
 ## Installation
 
